@@ -1,7 +1,7 @@
 <skin>
 	<screen name="MagentaMusik360MainScreen" position="center,center" size="820,680" flags="wfNoBorder">
 		<ePixmap position="center,25" size="700,87" scale="1" pixmap="~/MagentaMusik360_logo.png" alphatest="blend" zPosition="1"/>
-		<widget name="version" position="760,89" size="75,20" font="Regular;18" zPosition="2" />
+		<widget name="version" position="760,70" size="75,20" font="Regular;18" zPosition="2" />
 		<widget name="title" position="10,125" size="800,40" font="Regular;30" zPosition="1" />
 		<widget name="subtitle" position="10,165" size="800,35" font="Regular;25" zPosition="1" />
 		<widget source="list" render="Listbox" position="10,200" size="800,420" scrollbarMode="showOnDemand">
@@ -27,7 +27,7 @@
 
 	<screen name="MagentaMusik360SectionScreen" position="center,center" size="820,680" flags="wfNoBorder">
 		<ePixmap position="center,25" size="700,87" scale="1" pixmap="~/MagentaMusik360_logo.png" alphatest="blend" zPosition="1"/>
-		<widget name="version" position="760,89" size="75,20" font="Regular;18" zPosition="2" />
+		<widget name="version" position="760,70" size="75,20" font="Regular;18" zPosition="2" />
 		<widget name="title" position="10,125" size="800,40" font="Regular;30" zPosition="1" />
 		<widget name="subtitle" position="10,165" size="800,35" font="Regular;25" zPosition="1" />
 		<widget source="list" render="Listbox" position="10,200" size="800,420" scrollbarMode="showOnDemand">
@@ -55,7 +55,7 @@
 
 	<screen name="MagentaMusik360EventScreen" position="center,center" size="820,680" flags="wfNoBorder">
 		<ePixmap position="center,25" size="700,87" scale="1" pixmap="~/MagentaMusik360_logo.png" alphatest="blend" zPosition="1"/>
-		<widget name="version" position="760,89" size="75,20" font="Regular;18" zPosition="2" />
+		<widget name="version" position="760,70" size="75,20" font="Regular;18" zPosition="2" />
 		<widget name="description" position="10,150" size="800,40" font="Regular;25" zPosition="1" />
 		<widget name="match" position="10,200" size="800,45" noWrap="1" halign="center" font="Regular;35" zPosition="1" />
 		<widget name="subdescription" position="10,270" size="800,90" font="Regular;25" zPosition="1" />
