@@ -56,10 +56,10 @@
 	<screen name="MagentaMusik360EventScreen" position="center,center" size="1230,1020" flags="wfNoBorder">
 		<ePixmap position="center,25" size="1070,134" scale="1" pixmap="~/MagentaMusik360_logo.png" alphatest="blend" zPosition="1"/>
 		<widget name="version" position="1150,95" size="90,35" font="Regular;26" zPosition="2" />
-		<widget name="description" position="15,230" size="1200,50" font="Regular;35" zPosition="1" />
-		<widget name="match" position="15,290" size="1200,65" noWrap="1" halign="center" font="Regular;50" zPosition="1" />
-		<widget name="subdescription" position="15,370" size="1200,130" font="Regular;35" zPosition="1" />
-		<widget source="list" render="Listbox" position="15,500" size="1200,400" scrollbarMode="showOnDemand">
+		<widget name="series" position="15,230" size="1200,50" font="Regular;35" zPosition="1" />
+		<widget name="concert" position="15,290" size="1200,65" noWrap="1" halign="center" font="Regular;50" zPosition="1" />
+		<widget name="subdescription" position="15,370" size="1200,50" font="Regular;35" zPosition="1" />
+		<widget source="list" render="Listbox" position="15,450" size="1200,120" scrollbarMode="showOnDemand">
 			<convert type="TemplatedMultiContent">
 				{"templates":
 					{"default": (45,[
@@ -71,8 +71,8 @@
 				}
 			</convert>
 		</widget>
-		<widget name="status" position="15,500" size="1200,400" font="Regular;35" halign="center" zPosition="1" />
-		<widget name="pay" position="35,955" size="250,50" valign="center" halign="center" zPosition="2" font="Regular;32"/>
+		<widget name="fulldescription" position="15,600" size="1200,330" font="Regular;32" zPosition="1" />
+		<widget name="status" position="15,500" size="1200,400" font="Regular;35" halign="center" zPosition="2" />
 		<widget foregroundColor="white" font="Regular;32" position="930,960" render="Label" size="270,50" halign="right" valign="center" source="global.CurrentTime">
 			<convert type="ClockToText">
 				Format:%d.%m.%Y %H:%M
