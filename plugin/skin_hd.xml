@@ -33,14 +33,15 @@
 		<widget source="list" render="Listbox" position="10,200" size="800,420" scrollbarMode="showOnDemand">
 			<convert type="TemplatedMultiContent">
 				{"templates":
-					{"default": (30,[
-						MultiContentEntryText(pos = (5, 0), size = (750, 28), font=0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 0),
-						MultiContentEntryText(pos = (50, 0), size = (750, 28), font=0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 1),
-						MultiContentEntryText(pos = (0, 0), size = (800, 30), border_width=1, border_color=0x424242, font=0, text = ""),
+					{"default": (60,[
+						MultiContentEntryText(pos = (20, 0), size = (750, 30), font=0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 0), # title
+						MultiContentEntryText(pos = (20, 30), size = (500, 28), font=1, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 1), # origTitle
+						MultiContentEntryText(pos = (520, 30), size = (260, 28), font=1, flags = RT_HALIGN_RIGHT|RT_VALIGN_CENTER, text = 2), # seriesTitle
+						MultiContentEntryText(pos = (0, 0), size = (800, 60), border_width=1, border_color=0x424242, font=0, text = ""), # border
 					]),
 					},
-					"fonts": [gFont("Regular", 20)],
-					"itemHeight": 30
+					"fonts": [gFont("Regular", 24),gFont("Regular", 20)],
+					"itemHeight": 60
 				}
 			</convert>
 		</widget>

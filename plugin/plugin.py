@@ -385,13 +385,16 @@ class MagentaMusik360SectionScreen(Screen):
 			title = ''
 			if jsonData['$type'] == 'seriesdetails':
 				title = jsonData['content']['series']['episodeFeatures']['featureType'].encode('utf8')
-				self.sectionList.append((title, '', 'series', self.url))
+				self.sectionList.append((title, '', '', 'series', self.url))
 			elif jsonData['$type'] == 'topten':
 				for movies in jsonData['content']['teasers']:
-					#title = movies['movie']['seriesTitle'].encode('utf8')
+					seriesTitle = ''
 					title = movies['movie']['title'].encode('utf8')
+					origTitle = movies['movie']['originalTitle'].encode('utf8')
 					url = movies['movie']['player']['href'].encode('utf8')
-					self.sectionList.append((title, '', 'teaser', url))
+					if 'seriesTitle' in movies['movie']:
+						seriesTitle = movies['movie']['seriesTitle'].encode('utf8')
+					self.sectionList.append((title, origTitle, seriesTitle, 'teaser', url))
 		except Exception as e:
 			self['status'].setText('Bitte Pluginentwickler informieren:\nMagentaMusik360SectionScreen ' + str(e))
 			return
@@ -402,8 +405,8 @@ class MagentaMusik360SectionScreen(Screen):
 	def ok(self):
 		if self['list'].getCurrent():
 			title = self['list'].getCurrent()[0]
-			event_type = self['list'].getCurrent()[2]
-			url = self['list'].getCurrent()[3]
+			event_type = self['list'].getCurrent()[3]
+			url = self['list'].getCurrent()[4]
 			if url != '':
 				self.session.openWithCallback(self.recursiveClose, MagentaMusik360EventScreen, self.main_title, title, url, event_type)
 
@@ -427,7 +430,7 @@ class MagentaMusik360SectionScreen(Screen):
 
 class MagentaMusik360MainScreen(Screen):
 
-	version = 'v0.1.3'
+	version = 'v0.1.4'
 
 	base_url = 'https://wcss.t-online.de/cvss/magentamusic/vodplayer/v3/structuredgrid/58948?$whiteLabelId=MM2'
 	title = 'MagentaMusik 360'
