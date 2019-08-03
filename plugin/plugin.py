@@ -330,10 +330,7 @@ class MagentaMusik360EventScreen(Screen):
 				data = json.loads(response)
 				for episode in data['content']['season']['episodes']:
 					if episode['movie']['flag']['name'] == 'mmStage':
-						url = episode['movie']['details']['href'].encode('utf8')
-						response = urllib2.urlopen(url).read()
-						data = json.loads(response)
-						url = data['content']['movie']['features'][0]['player']['href'].encode('utf8')
+						url = episode['movie']['features'][0]['player']['href'].encode('utf8')
 						downloadMagentaMusikJson(url, boundFunction(loadMagentaMusikJsonData, 'Event', self['status'], self.buildScreen), boundFunction(handleMagentaMusikDownloadError, 'Event', self['status']))
 						return
 		except Exception as e:
@@ -438,7 +435,7 @@ class MagentaMusik360SectionScreen(Screen):
 
 class MagentaMusik360MainScreen(Screen):
 
-	version = 'v0.2.1'
+	version = 'v0.3.0'
 
 	base_url = 'https://wcss.t-online.de/cvss/magentamusic/vodplayer/v3/structuredgrid/58948?$whiteLabelId=MM2'
 	title = 'MagentaMusik 360'
