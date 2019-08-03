@@ -313,9 +313,8 @@ class MagentaMusik360EventScreen(Screen):
 				for videos in jsonData['content']['feature']['representations']:
 					if videos['quality'] != 'VR':
 						for video in videos['contentPackages']:
-							title = video['contentClass'].encode('utf8')
 							url = video['media']['href'].encode('utf8')
-							self.videoList.append((title, url))
+							self.videoList.append(('Starte Stream', url))
 		except Exception as e:
 			self['status'].setText('Bitte Pluginentwickler informieren:\nMagentaMusik360EventScreen ' + str(e))
 			return
@@ -439,7 +438,7 @@ class MagentaMusik360SectionScreen(Screen):
 
 class MagentaMusik360MainScreen(Screen):
 
-	version = 'v0.2.0'
+	version = 'v0.2.1'
 
 	base_url = 'https://wcss.t-online.de/cvss/magentamusic/vodplayer/v3/structuredgrid/58948?$whiteLabelId=MM2'
 	title = 'MagentaMusik 360'
