@@ -427,7 +427,7 @@ class MagentaMusik360SectionScreen(Screen):
 
 class MagentaMusik360MainScreen(Screen):
 
-	version = 'v0.1.2'
+	version = 'v0.1.3'
 
 	base_url = 'https://wcss.t-online.de/cvss/magentamusic/vodplayer/v3/structuredgrid/58948?$whiteLabelId=MM2'
 	title = 'MagentaMusik 360'
@@ -455,15 +455,16 @@ class MagentaMusik360MainScreen(Screen):
 
 	def buildList(self, jsonData):
 		try:
-			self['title'].setText(jsonData['content']['header']['title'].encode('utf8'))
-			for group in jsonData['content']['groups']:
-				if group['groupType'] == 'smallTeaser':
-					if len(group['items']) == 1:
-						title = group['items'][0]['teaser']['header'].encode('utf8')
-						self.contentlist.append((title, group['items'][0]['teaser']['target']['href'].encode('utf8')))
-				elif group['groupType'] == 'assetList':
-					title = group['title'].encode('utf8')
-					self.contentlist.append((title, group['showAll']['href'].encode('utf8')))
+			if jsonData['$type'] == 'structuredGrid':
+				self['title'].setText(jsonData['content']['header']['title'].encode('utf8'))
+				for group in jsonData['content']['groups']:
+					if group['groupType'] == 'smallTeaser':
+						if len(group['items']) == 1:
+							title = group['items'][0]['teaser']['header'].encode('utf8')
+							self.contentlist.append((title, group['items'][0]['teaser']['target']['href'].encode('utf8')))
+					elif group['groupType'] == 'assetList':
+						title = group['title'].encode('utf8')
+						self.contentlist.append((title, group['showAll']['href'].encode('utf8')))
 		except Exception as e:
 			self['status'].setText('Bitte Pluginentwickler informieren:\nMagentaMusik360MainScreen ' + str(e))
 			return
