@@ -427,7 +427,7 @@ class MagentaMusik360SectionScreen(Screen):
 
 class MagentaMusik360MainScreen(Screen):
 
-	version = 'v0.1.1'
+	version = 'v0.1.2'
 
 	base_url = 'https://wcss.t-online.de/cvss/magentamusic/vodplayer/v3/structuredgrid/58948?$whiteLabelId=MM2'
 	title = 'MagentaMusik 360'
