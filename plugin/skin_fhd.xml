@@ -1,0 +1,82 @@
+<skin>
+	<screen name="MagentaMusik360MainScreen" position="center,center" size="1230,1020" flags="wfNoBorder">
+		<ePixmap position="center,25" size="1070,134" scale="1" pixmap="~/TelekomSport-Logo.png" alphatest="blend" zPosition="1"/>
+		<widget name="version" position="1150,127" size="90,35" font="Regular;26" zPosition="2" />
+		<widget name="title" position="15,185" size="1200,50" font="Regular;42" zPosition="1" />
+		<widget name="subtitle" position="15,235" size="1200,45" font="Regular;38" zPosition="1" />
+		<widget source="list" render="Listbox" position="15,300" size="1200,630" scrollbarMode="showOnDemand">
+			<convert type="TemplatedMultiContent">
+				{"templates":
+					{"default": (45,[
+						MultiContentEntryText(pos = (5, 0), size = (1180, 40), font=0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 0),
+						MultiContentEntryText(pos = (0, 0), size = (1200, 45), border_width=1, border_color=0x424242, font=0, text = ""),
+					]),
+					},
+					"fonts": [gFont("Regular", 32)],
+					"itemHeight": 45
+				}
+			</convert>
+		</widget>
+		<widget name="status" position="15,300" size="1200,630" font="Regular;35" halign="center" zPosition="1" />
+		<widget foregroundColor="white" font="Regular;32" position="930,960" render="Label" size="270,50" halign="right" valign="center" source="global.CurrentTime">
+			<convert type="ClockToText">
+				Format:%d.%m.%Y %H:%M
+			</convert>
+		</widget>
+	</screen>
+
+	<screen name="MagentaMusik360SectionScreen" position="center,center" size="1230,1020" flags="wfNoBorder">
+		<ePixmap position="center,25" size="1070,134" scale="1" pixmap="~/TelekomSport-Logo.png" alphatest="blend" zPosition="1"/>
+		<widget name="version" position="1150,127" size="90,35" font="Regular;26" zPosition="2" />
+		<widget name="title" position="15,185" size="1200,50" font="Regular;42" zPosition="1" />
+		<widget name="subtitle" position="15,235" size="1200,45" font="Regular;38" zPosition="1" />
+		<widget source="list" render="Listbox" position="15,300" size="1200,630" scrollbarMode="showOnDemand">
+			<convert type="TemplatedMultiContent">
+				{"templates":
+					{"default": (45,[
+						MultiContentEntryText(pos = (5, 0), size = (1180, 40), font=0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 0),
+						MultiContentEntryText(pos = (50, 0), size = (1140, 40), font=0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 1),
+						MultiContentEntryText(pos = (0, 0), size = (1200, 45), border_width=1, border_color=0x424242, font=0, text = ""),
+					]),
+					},
+					"fonts": [gFont("Regular", 32)],
+					"itemHeight": 45
+				}
+			</convert>
+		</widget>
+		<widget name="status" position="15,300" size="1200,630" font="Regular;35" halign="center" zPosition="1" />
+		<widget foregroundColor="white" font="Regular;32" position="930,960" render="Label" size="270,50" halign="right" valign="center" source="global.CurrentTime">
+			<convert type="ClockToText">
+				Format:%d.%m.%Y %H:%M
+			</convert>
+		</widget>
+	</screen>
+
+	<screen name="MagentaMusik360EventScreen" position="center,center" size="1230,1020" flags="wfNoBorder">
+		<ePixmap position="center,25" size="1070,134" scale="1" pixmap="~/TelekomSport-Logo.png" alphatest="blend" zPosition="1"/>
+		<widget name="version" position="1150,127" size="90,35" font="Regular;26" zPosition="2" />
+		<widget name="description" position="15,230" size="1200,50" font="Regular;35" zPosition="1" />
+		<widget name="match" position="15,290" size="1200,65" noWrap="1" halign="center" font="Regular;50" zPosition="1" />
+		<widget name="subdescription" position="15,370" size="1200,130" font="Regular;35" zPosition="1" />
+		<widget source="list" render="Listbox" position="15,500" size="1200,400" scrollbarMode="showOnDemand">
+			<convert type="TemplatedMultiContent">
+				{"templates":
+					{"default": (45,[
+						MultiContentEntryText(pos = (20, 0), size = (1100, 40), font=0, flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 0),
+					]),
+					},
+					"fonts": [gFont("Regular", 32)],
+					"itemHeight": 45
+				}
+			</convert>
+		</widget>
+		<widget name="status" position="15,500" size="1200,400" font="Regular;35" halign="center" zPosition="1" />
+		<widget name="pay" position="35,955" size="250,50" valign="center" halign="center" zPosition="2" font="Regular;32"/>
+		<widget foregroundColor="white" font="Regular;32" position="930,960" render="Label" size="270,50" halign="right" valign="center" source="global.CurrentTime">
+			<convert type="ClockToText">
+				Format:%d.%m.%Y %H:%M
+			</convert>
+		</widget>
+	</screen>
+
+</skin>
