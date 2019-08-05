@@ -309,6 +309,8 @@ class MagentaMusik360EventScreen(Screen):
 				title = jsonData['content']['feature']['metadata']['title'].encode('utf8')
 				if 'originalTitle' in jsonData['content']['feature']['metadata']:
 					origTitle = jsonData['content']['feature']['metadata']['originalTitle'].encode('utf8')
+					if origTitle == title:
+						origTitle = ''
 				if 'fullDescription' in jsonData['content']['feature']['metadata']:
 					fulldescription = jsonData['content']['feature']['metadata']['fullDescription'].encode('utf8')
 				self['concert'].setText(title)
@@ -402,6 +404,8 @@ class MagentaMusik360SectionScreen(Screen):
 					title = movies['movie']['title'].encode('utf8')
 					if 'originalTitle' in movies['movie']:
 						origTitle = movies['movie']['originalTitle'].encode('utf8')
+						if origTitle == title:
+							origTitle = ''
 					url = movies['movie']['player']['href'].encode('utf8')
 					if 'seriesTitle' in movies['movie']:
 						seriesTitle = movies['movie']['seriesTitle'].encode('utf8')
@@ -441,7 +445,7 @@ class MagentaMusik360SectionScreen(Screen):
 
 class MagentaMusik360MainScreen(Screen):
 
-	version = 'v0.9.1'
+	version = 'v1.0.0'
 
 	base_url = 'https://wcss.t-online.de/cvss/magentamusic/vodplayer/v3/structuredgrid/58948?$whiteLabelId=MM2'
 	title = 'MagentaMusik 360'
