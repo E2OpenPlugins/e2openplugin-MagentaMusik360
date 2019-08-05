@@ -18,6 +18,7 @@
 			</convert>
 		</widget>
 		<widget name="status" position="10,200" size="800,420" font="Regular;25" halign="center" zPosition="1" />
+		<widget name="buttongreen" position="185,630" size="140,35" backgroundColor="green" valign="center" halign="center" zPosition="2" foregroundColor="white" font="Regular;20"/>
 		<widget foregroundColor="white" font="Regular;20" position="610,635" render="Label" size="200,35" halign="right" valign="center" source="global.CurrentTime">
 			<convert type="ClockToText">
 				Format:%d.%m.%Y %H:%M

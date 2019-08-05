@@ -17,6 +17,7 @@ from Components.ConfigList import ConfigListScreen
 from Components.config import config, getConfigListEntry, ConfigSubsection, ConfigText, ConfigPassword, ConfigInteger, ConfigNothing, ConfigYesNo, ConfigSelection, NoSave
 from Tools.BoundFunction import boundFunction
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
+from downloader import MagentMusik360DownloadWithProgress
 
 from enigma import eTimer, eListboxPythonMultiContent, gFont, eEnv, eServiceReference, getDesktop, eConsoleAppContainer
 
@@ -439,7 +440,7 @@ class MagentaMusik360SectionScreen(Screen):
 
 class MagentaMusik360MainScreen(Screen):
 
-	version = 'v0.3.1'
+	version = 'v0.9.0'
 
 	base_url = 'https://wcss.t-online.de/cvss/magentamusic/vodplayer/v3/structuredgrid/58948?$whiteLabelId=MM2'
 	title = 'MagentaMusik 360'
@@ -458,12 +459,17 @@ class MagentaMusik360MainScreen(Screen):
 		self.contentlist = []
 		self['list'] = List(self.contentlist)
 
+		self['buttongreen'] = Label('Update')
+		self['buttongreen'].hide()
+
 		self['actions'] = ActionMap(['SetupActions', 'DirectionActions', 'ColorActions'],
 		{
 			'cancel': self.close,
 			'ok': self.ok,
+			'green': self.update,
 		})
 		downloadMagentaMusikJson(self.base_url, boundFunction(loadMagentaMusikJsonData, 'Main', self['status'], self.buildList), boundFunction(handleMagentaMusikDownloadError, 'Main', self['status']))
+		self.onLayoutFinish.append(self.checkForUpdate)
 
 	def buildList(self, jsonData):
 		try:
@@ -506,6 +512,75 @@ class MagentaMusik360MainScreen(Screen):
 
 	def createSummary(self):
 		return MagentaMusik360MainScreenSummary
+
+	# for update
+	def checkForUpdate(self):
+		url = 'https://api.github.com/repos/E2OpenPlugins/e2openplugin-MagentaMusik360/releases'
+		header = { 'Accept' : 'application/vnd.github.v3+json' }
+		req = urllib2.Request(url, None, header)
+		self.update_exist = False
+		try:
+			response = urllib2.urlopen(req)
+			jsonData = json.loads(response.read())
+
+			for rel in jsonData:
+				if rel['target_commitish'] != 'master':
+					continue
+				if self.version < rel['tag_name']:
+					self.updateText = rel['body'].encode('utf8')
+					for asset in rel['assets']:
+						if magentamusik_isDreamOS and asset['name'].endswith('.deb'):
+							self.updateUrl = asset['browser_download_url'].encode('utf8')
+							self.filename = '/tmp/enigma2-plugin-extensions-magentamusik360.deb'
+							self['buttongreen'].show()
+							self.update_exist = True
+							break
+						elif (not magentamusik_isDreamOS) and asset['name'].endswith('.ipk'):
+							self.updateUrl = asset['browser_download_url'].encode('utf8')
+							self.filename = '/tmp/enigma2-plugin-extensions-magentamusik360.ipk'
+							self['buttongreen'].show()
+							self.update_exist = True
+							break
+				if self.version >= rel['tag_name'] or self.updateUrl != '':
+					break
+		except Exception as e:
+			pass
+
+	def update(self):
+		if self.updateUrl:
+			self.session.openWithCallback(self.updateConfirmed, MessageBox, 'Ein Update ist verfügbar. Wollen sie es installieren?\nInformationen:\n' + self.updateText, MessageBox.TYPE_YESNO, default = False)
+
+	def updateConfirmed(self, answer):
+		if answer:
+			self.downloader = MagentMusik360DownloadWithProgress(self.updateUrl, self.filename)
+			self.downloader.addError(self.updateFailed)
+			self.downloader.addEnd(self.downloadFinished)
+			self.downloader.start()
+
+	def downloadFinished(self):
+		self.downloader.stop()
+		self.container = eConsoleAppContainer()
+		if magentamusik_isDreamOS:
+			self.container.appClosed_conn = self.container.appClosed.connect(self.updateFinished)
+			self.container.execute('dpkg -i ' + self.filename)
+		else:
+			self.container.appClosed.append(self.updateFinished)
+			self.container.execute('opkg update; opkg install ' + self.filename)
+
+	def updateFailed(self, reason, status):
+		self.updateFinished(1)
+
+	def updateFinished(self, retval):
+		self['buttongreen'].hide()
+		self.updateUrl = ''
+		if retval == 0:
+			self.session.openWithCallback(self.restartE2, MessageBox, 'Das MagentaMusik360 Plugin wurde erfolgreich installiert!\nSoll das E2 GUI neugestartet werden?', MessageBox.TYPE_YESNO, default = False)
+		else:
+			self.session.open(MessageBox, 'Bei der Installation ist ein Problem aufgetreten.', MessageBox.TYPE_ERROR)
+
+	def restartE2(self, answer):
+		if answer:
+			self.session.open(TryQuitMainloop, 3)
 
 
 def main(session, **kwargs):
