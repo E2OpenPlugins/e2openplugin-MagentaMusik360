@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function
 
 from skin import loadSkin
 from Plugins.Plugin import PluginDescriptor
@@ -260,7 +261,7 @@ class MagentaMusik360EventScreen(Screen):
 				if streams:
 					streams.sort(key = lambda x : x[0])
 					if len(streams) <> 5:
-						print 'Warning: %d streams in m3u8. 5 expected' % len(streams)
+						print('Warning: %d streams in m3u8. 5 expected' % len(streams))
 						if int(config.plugins.magentamusik360.stream_quality.value) < 2:
 							return streams[0][1]
 						else:
@@ -440,7 +441,7 @@ class MagentaMusik360SectionScreen(Screen):
 
 class MagentaMusik360MainScreen(Screen):
 
-	version = 'v0.9.0'
+	version = 'v0.9.1'
 
 	base_url = 'https://wcss.t-online.de/cvss/magentamusic/vodplayer/v3/structuredgrid/58948?$whiteLabelId=MM2'
 	title = 'MagentaMusik 360'
