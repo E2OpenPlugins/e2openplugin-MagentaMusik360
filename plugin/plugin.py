@@ -445,7 +445,7 @@ class MagentaMusik360SectionScreen(Screen):
 
 class MagentaMusik360MainScreen(Screen):
 
-	version = 'v1.0.0'
+	version = 'v1.0.1'
 
 	base_url = 'https://wcss.t-online.de/cvss/magentamusic/vodplayer/v3/structuredgrid/58948?$whiteLabelId=MM2'
 	title = 'MagentaMusik 360'
@@ -453,6 +453,10 @@ class MagentaMusik360MainScreen(Screen):
 	def __init__(self, session, args = None):
 		Screen.__init__(self, session)
 		self.session = session
+
+		self.updateUrl = ''
+		self.updateText = ''
+		self.filename = ''
 
 		self.setup_title = MagentaMusik360MainScreen.title
 
@@ -523,7 +527,6 @@ class MagentaMusik360MainScreen(Screen):
 		url = 'https://api.github.com/repos/E2OpenPlugins/e2openplugin-MagentaMusik360/releases'
 		header = { 'Accept' : 'application/vnd.github.v3+json' }
 		req = urllib2.Request(url, None, header)
-		self.update_exist = False
 		try:
 			response = urllib2.urlopen(req)
 			jsonData = json.loads(response.read())
@@ -538,13 +541,11 @@ class MagentaMusik360MainScreen(Screen):
 							self.updateUrl = asset['browser_download_url'].encode('utf8')
 							self.filename = '/tmp/enigma2-plugin-extensions-magentamusik360.deb'
 							self['buttongreen'].show()
-							self.update_exist = True
 							break
 						elif (not magentamusik_isDreamOS) and asset['name'].endswith('.ipk'):
 							self.updateUrl = asset['browser_download_url'].encode('utf8')
 							self.filename = '/tmp/enigma2-plugin-extensions-magentamusik360.ipk'
 							self['buttongreen'].show()
-							self.update_exist = True
 							break
 				if self.version >= rel['tag_name'] or self.updateUrl != '':
 					break
