@@ -2,7 +2,9 @@
 
 from twisted.web import client
 from twisted.internet import reactor, defer
-from urlparse import urlparse
+
+from six.moves.urllib.parse import urlparse
+
 
 class MagentMusik360HTTPProgressDownloader(client.HTTPDownloader):
 	def __init__(self, url, outfile, headers=None):

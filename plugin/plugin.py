@@ -25,8 +25,6 @@ from enigma import eTimer, eListboxPythonMultiContent, gFont, eEnv, eServiceRefe
 
 import xml.etree.ElementTree as ET
 import time
-import urllib
-import urllib2
 import json
 import base64
 import re
@@ -60,6 +58,10 @@ except:
 #==== workaround for TLSv1_2 with DreamOS =======
 from OpenSSL import SSL
 from twisted.internet.ssl import ClientContextFactory
+
+from six.moves import urllib
+
+
 try:
 	# available since twisted 14.0
 	from twisted.internet._sslverify import ClientTLSOptions
@@ -226,14 +228,14 @@ class MagentaMusik360EventScreen(Screen):
 
 	def getStreamUrl(self, url):
 		try:
-			response = urllib2.urlopen(url).read()
+			response = urllib.request.urlopen(url).read()
 			namespace = { 'ns0': 'http://www.w3.org/ns/SMIL' }
 			xmlroot = ET.ElementTree(ET.fromstring(response))
 			playlisturl = xmlroot.find('ns0:body/ns0:seq/ns0:media', namespace).get('src')
 			return playlisturl, 0
-		except urllib2.HTTPError as e:
+		except urllib.error.HTTPError as e:
 			return '', e.code
-		except urllib2.URLError as e2:
+		except urllib.error.URLError as e2:
 			if 'CERTIFICATE_VERIFY_FAILED' in str(e2.reason):
 				return '', -2
 			return '', -1
@@ -249,7 +251,7 @@ class MagentaMusik360EventScreen(Screen):
 		try:
 			attributeListPattern = re.compile(r'''((?:[^,"']|"[^"]*"|'[^']*')+)''')
 			streams = []
-			lines = urllib2.urlopen(m3u8_url).readlines()
+			lines = urllib.request.urlopen(m3u8_url).readlines()
 			if len(lines) > 0 and lines[0] == '#EXTM3U\r\n':
 				i = 1
 				count_lines = len(lines)
@@ -333,7 +335,7 @@ class MagentaMusik360EventScreen(Screen):
 		try:
 			for season in jsonData['content']['series']['seasons']:
 				url = season['season']['details']['href'].encode('utf8')
-				response = urllib2.urlopen(url).read()
+				response = urllib.request.urlopen(url).read()
 				data = json.loads(response)
 				for episode in data['content']['season']['episodes']:
 					if episode['movie']['flag']['name'] == 'mmStage':
@@ -527,9 +529,9 @@ class MagentaMusik360MainScreen(Screen):
 	def checkForUpdate(self):
 		url = 'https://api.github.com/repos/E2OpenPlugins/e2openplugin-MagentaMusik360/releases'
 		header = { 'Accept' : 'application/vnd.github.v3+json' }
-		req = urllib2.Request(url, None, header)
+		req = urllib.request.Request(url, None, header)
 		try:
-			response = urllib2.urlopen(req)
+			response = urllib.request.urlopen(req)
 			jsonData = json.loads(response.read())
 
 			for rel in jsonData:
