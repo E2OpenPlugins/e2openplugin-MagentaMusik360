@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
+from __future__ import absolute_import
 
 from skin import loadSkin
 from Plugins.Plugin import PluginDescriptor
@@ -18,7 +19,7 @@ from Components.ConfigList import ConfigListScreen
 from Components.config import config, getConfigListEntry, ConfigSubsection, ConfigText, ConfigPassword, ConfigInteger, ConfigNothing, ConfigYesNo, ConfigSelection, NoSave
 from Tools.BoundFunction import boundFunction
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
-from downloader import MagentMusik360DownloadWithProgress
+from .downloader import MagentMusik360DownloadWithProgress
 
 from enigma import eTimer, eListboxPythonMultiContent, gFont, eEnv, eServiceReference, getDesktop, eConsoleAppContainer
 
@@ -156,9 +157,9 @@ class MagentaMusik360MoviePlayer(Screen, InfoBarMenu, InfoBarBase, InfoBarSeek, 
 
 		self['actions'] = ActionMap(['MoviePlayerActions', 'ColorActions', 'OkCancelActions'],
 		{
-			'leavePlayer' : self.leavePlayer,
-			'cancel'      : self.leavePlayer,
-			'leavePlayerOnExit' : self.leavePlayerOnExit,
+			'leavePlayer': self.leavePlayer,
+			'cancel': self.leavePlayer,
+			'leavePlayerOnExit': self.leavePlayerOnExit,
 		}, -2)
 		self.onFirstExecBegin.append(self.playStream)
 		self.onClose.append(self.stopPlayback)
@@ -260,7 +261,7 @@ class MagentaMusik360EventScreen(Screen):
 					i += 1
 				if streams:
 					streams.sort(key = lambda x : x[0])
-					if len(streams) <> 5:
+					if len(streams) != 5:
 						print('Warning: %d streams in m3u8. 5 expected' % len(streams))
 						if int(config.plugins.magentamusik360.stream_quality.value) < 2:
 							return streams[0][1]
