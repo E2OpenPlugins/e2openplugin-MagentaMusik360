@@ -28,7 +28,6 @@ import time
 import json
 import base64
 import re
-from itertools import cycle, izip
 from datetime import datetime
 from twisted.web.client import Agent, readBody
 from twisted.internet import reactor
