@@ -308,20 +308,20 @@ class MagentaMusik360EventScreen(Screen):
 			if jsonData['$type'] == 'player':
 				fulldescription = ''
 				origTitle = ''
-				title = jsonData['content']['feature']['metadata']['title'].encode('utf8')
+				title = jsonData['content']['feature']['metadata']['title']
 				if 'originalTitle' in jsonData['content']['feature']['metadata']:
-					origTitle = jsonData['content']['feature']['metadata']['originalTitle'].encode('utf8')
+					origTitle = jsonData['content']['feature']['metadata']['originalTitle']
 					if origTitle == title:
 						origTitle = ''
 				if 'fullDescription' in jsonData['content']['feature']['metadata']:
-					fulldescription = jsonData['content']['feature']['metadata']['fullDescription'].encode('utf8')
+					fulldescription = jsonData['content']['feature']['metadata']['fullDescription']
 				self['concert'].setText(title)
 				self['subdescription'].setText(origTitle)
 				self['fulldescription'].setText(fulldescription)
 				for videos in jsonData['content']['feature']['representations']:
 					if videos['quality'] != 'VR':
 						for video in videos['contentPackages']:
-							url = video['media']['href'].encode('utf8')
+							url = video['media']['href']
 							self.videoList.append(('Starte Stream', url))
 		except Exception as e:
 			self['status'].setText('Bitte Pluginentwickler informieren:\nMagentaMusik360EventScreen ' + str(e))
@@ -333,7 +333,7 @@ class MagentaMusik360EventScreen(Screen):
 	def readSeries(self, jsonData):
 		try:
 			for season in jsonData['content']['series']['seasons']:
-				url = season['season']['details']['href'].encode('utf8')
+				url = season['season']['details']['href']
 				response = urllib.request.urlopen(url).read()
 				data = json.loads(response)
 				for episode in data['content']['season']['episodes']:
@@ -397,20 +397,20 @@ class MagentaMusik360SectionScreen(Screen):
 		try:
 			title = ''
 			if jsonData['$type'] == 'seriesdetails':
-				title = jsonData['content']['series']['episodeFeatures']['featureType'].encode('utf8')
+				title = jsonData['content']['series']['episodeFeatures']['featureType']
 				self.sectionList.append((title, '', '', 'series', self.url))
 			elif jsonData['$type'] == 'topten':
 				for movies in jsonData['content']['teasers']:
 					seriesTitle = ''
 					origTitle = ''
-					title = movies['movie']['title'].encode('utf8')
+					title = movies['movie']['title']
 					if 'originalTitle' in movies['movie']:
-						origTitle = movies['movie']['originalTitle'].encode('utf8')
+						origTitle = movies['movie']['originalTitle']
 						if origTitle == title:
 							origTitle = ''
 					url = movies['movie']['player']['href'].encode('utf8')
 					if 'seriesTitle' in movies['movie']:
-						seriesTitle = movies['movie']['seriesTitle'].encode('utf8')
+						seriesTitle = movies['movie']['seriesTitle']
 					self.sectionList.append((title, origTitle, seriesTitle, 'teaser', url))
 		except Exception as e:
 			self['status'].setText('Bitte Pluginentwickler informieren:\nMagentaMusik360SectionScreen ' + str(e))
@@ -485,14 +485,14 @@ class MagentaMusik360MainScreen(Screen):
 	def buildList(self, jsonData):
 		try:
 			if jsonData['$type'] == 'structuredGrid':
-				self['title'].setText(jsonData['content']['header']['title'].encode('utf8'))
+				self['title'].setText(jsonData['content']['header']['title'])
 				for group in jsonData['content']['groups']:
 					if group['groupType'] == 'smallTeaser':
 						if len(group['items']) == 1:
-							title = group['items'][0]['teaser']['header'].encode('utf8')
+							title = group['items'][0]['teaser']['header']
 							self.contentlist.append((title, group['items'][0]['teaser']['target']['href'].encode('utf8')))
 					elif group['groupType'] == 'assetList':
-						title = group['title'].encode('utf8')
+						title = group['title']
 						self.contentlist.append((title, group['showAll']['href'].encode('utf8')))
 		except Exception as e:
 			self['status'].setText('Bitte Pluginentwickler informieren:\nMagentaMusik360MainScreen ' + str(e))
@@ -537,7 +537,7 @@ class MagentaMusik360MainScreen(Screen):
 				if rel['target_commitish'] != 'master':
 					continue
 				if self.version < rel['tag_name']:
-					self.updateText = rel['body'].encode('utf8')
+					self.updateText = rel['body']
 					for asset in rel['assets']:
 						if magentamusik_isDreamOS and asset['name'].endswith('.deb'):
 							self.updateUrl = asset['browser_download_url'].encode('utf8')
