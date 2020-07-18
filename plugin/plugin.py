@@ -111,7 +111,7 @@ def downloadMagentaMusikJson(url, callback, errorCallback):
 
 		contextFactory = WebClientContextFactory()
 		agent = Agent(reactor, contextFactory)
-	d = agent.request('GET', url, Headers({'user-agent': ['Twisted']}))
+	d = agent.request(b'GET', url, Headers({'user-agent': ['Twisted']}))
 	d.addCallback(boundFunction(handleMagentaMusikWebsiteResponse, callback))
 	d.addErrback(errorCallback)
 
@@ -449,7 +449,7 @@ class MagentaMusik360MainScreen(Screen):
 
 	version = 'v1.0.1'
 
-	base_url = 'https://wcss.t-online.de/cvss/magentamusic/vodplayer/v3/structuredgrid/58948?$whiteLabelId=MM2'
+	base_url = b'https://wcss.t-online.de/cvss/magentamusic/vodplayer/v3/structuredgrid/58948?$whiteLabelId=MM2'
 	title = 'MagentaMusik 360'
 
 	def __init__(self, session, args = None):
