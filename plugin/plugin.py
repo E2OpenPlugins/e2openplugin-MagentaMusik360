@@ -156,9 +156,9 @@ class MagentaMusik360MoviePlayer(Screen, InfoBarMenu, InfoBarBase, InfoBarSeek, 
 
 		self['actions'] = ActionMap(['MoviePlayerActions', 'ColorActions', 'OkCancelActions'],
 		{
-			'leavePlayer' : self.leavePlayer,
-			'cancel'      : self.leavePlayer,
-			'leavePlayerOnExit' : self.leavePlayerOnExit,
+			'leavePlayer': self.leavePlayer,
+			'cancel': self.leavePlayer,
+			'leavePlayerOnExit': self.leavePlayerOnExit,
 		}, -2)
 		self.onFirstExecBegin.append(self.playStream)
 		self.onClose.append(self.stopPlayback)
@@ -226,7 +226,7 @@ class MagentaMusik360EventScreen(Screen):
 	def getStreamUrl(self, url):
 		try:
 			response = urllib2.urlopen(url).read()
-			namespace = { 'ns0': 'http://www.w3.org/ns/SMIL' }
+			namespace = {'ns0': 'http://www.w3.org/ns/SMIL'}
 			xmlroot = ET.ElementTree(ET.fromstring(response))
 			playlisturl = xmlroot.find('ns0:body/ns0:seq/ns0:media', namespace).get('src')
 			return playlisturl, 0
@@ -259,7 +259,7 @@ class MagentaMusik360EventScreen(Screen):
 							streams.append((int(bandwith), lines[i+1].strip()))
 					i += 1
 				if streams:
-					streams.sort(key=lambda x : x[0])
+					streams.sort(key=lambda x: x[0])
 					if len(streams) <> 5:
 						print('Warning: %d streams in m3u8. 5 expected' % len(streams))
 						if int(config.plugins.magentamusik360.stream_quality.value) < 2:
@@ -292,7 +292,7 @@ class MagentaMusik360EventScreen(Screen):
 				if url[0:4] == 'http':
 					playlisturl = url
 				else: # relative url
-					playlisturl = playlisturl[0 : playlisturl.find('/index.m3u8') + 1] + url
+					playlisturl = playlisturl[0: playlisturl.find('/index.m3u8') + 1] + url
 
 		ref = eServiceReference(4097, 0, playlisturl)
 		ref.setName(title)
@@ -525,7 +525,7 @@ class MagentaMusik360MainScreen(Screen):
 	# for update
 	def checkForUpdate(self):
 		url = 'https://api.github.com/repos/E2OpenPlugins/e2openplugin-MagentaMusik360/releases'
-		header = { 'Accept' : 'application/vnd.github.v3+json' }
+		header = {'Accept': 'application/vnd.github.v3+json'}
 		req = urllib2.Request(url, None, header)
 		try:
 			response = urllib2.urlopen(req)

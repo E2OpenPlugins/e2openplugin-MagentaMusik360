@@ -1,7 +1,7 @@
 from distutils.core import setup, Extension
 
 pkg = 'Extensions.MagentaMusik360'
-setup (name='enigma2-plugin-extensions-magentamusik360',
+setup(name='enigma2-plugin-extensions-magentamusik360',
        version='1.0',
        license='GPLv2',
        url='https://github.com/E2OpenPlugins',
