@@ -256,7 +256,7 @@ class MagentaMusik360EventScreen(Screen):
 					if lines[i].startswith('#EXT-X-STREAM-INF:'):
 						bandwith = self.readExtXStreamInfLine(lines[i], attributeListPattern)
 						if bandwith and i + 1 < count_lines:
-							streams.append((int(bandwith), lines[i+1].strip()))
+							streams.append((int(bandwith), lines[i + 1].strip()))
 					i += 1
 				if streams:
 					streams.sort(key=lambda x: x[0])
@@ -265,7 +265,7 @@ class MagentaMusik360EventScreen(Screen):
 						if int(config.plugins.magentamusik360.stream_quality.value) < 2:
 							return streams[0][1]
 						else:
-							return streams[len(streams)-1][1]
+							return streams[len(streams) - 1][1]
 					return streams[int(config.plugins.magentamusik360.stream_quality.value)][1]
 			return ''
 		except:
