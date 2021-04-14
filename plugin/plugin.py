@@ -80,13 +80,16 @@ def loadMagentaMusikJsonData(screen, statusField, buildListFunc, data):
 	except Exception as e:
 		statusField.setText(screen + ': Fehler beim Laden der JSON Daten "' + str(e) + '"')
 
+
 def handleMagentaMusikWebsiteResponse(callback, response):
 	d = readBody(response)
 	d.addCallback(callback)
 	return d
 
+
 def handleMagentaMusikDownloadError(screen, statusField, err):
 	statusField.setText(screen + ': Fehler beim Download "' + str(err) + '"')
+
 
 def downloadMagentaMusikJson(url, callback, errorCallback):
 	if magentamusik_isDreamOS == False:
@@ -591,6 +594,7 @@ class MagentaMusik360MainScreen(Screen):
 
 def main(session, **kwargs):
 	session.open(MagentaMusik360MainScreen)
+
 
 def Plugins(**kwargs):
 	return PluginDescriptor(name='MagentaMusik360', description=_('MagentaMusik 360 Plugin'), where=PluginDescriptor.WHERE_PLUGINMENU, icon='plugin.png', fnc=main)
