@@ -156,9 +156,9 @@ class MagentaMusik360MoviePlayer(Screen, InfoBarMenu, InfoBarBase, InfoBarSeek, 
 
 		self['actions'] = ActionMap(['MoviePlayerActions', 'ColorActions', 'OkCancelActions'],
 		{
-			'leavePlayer' : self.leavePlayer,
-			'cancel'      : self.leavePlayer,
-			'leavePlayerOnExit' : self.leavePlayerOnExit,
+			'leavePlayer': self.leavePlayer,
+			'cancel'     : self.leavePlayer,
+			'leavePlayerOnExit': self.leavePlayerOnExit,
 		}, -2)
 		self.onFirstExecBegin.append(self.playStream)
 		self.onClose.append(self.stopPlayback)
@@ -259,7 +259,7 @@ class MagentaMusik360EventScreen(Screen):
 							streams.append((int(bandwith), lines[i+1].strip()))
 					i += 1
 				if streams:
-					streams.sort(key = lambda x : x[0])
+					streams.sort(key = lambda x: x[0])
 					if len(streams) <> 5:
 						print('Warning: %d streams in m3u8. 5 expected' % len(streams))
 						if int(config.plugins.magentamusik360.stream_quality.value) < 2:
